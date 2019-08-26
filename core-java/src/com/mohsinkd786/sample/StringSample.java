@@ -67,6 +67,6 @@ public class StringSample {
 		
 		System.out.println(splitStr[1]);
 		
-		
+		System.out.println("Pushed to Git Repo");
 	}
 }
