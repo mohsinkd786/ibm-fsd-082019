@@ -61,12 +61,74 @@ public class StringSample {
 		// split by 'e'
 		// str[0] = "H"
 		// str[1] = "llo"
-		
+
 		// split a string
 		String[] splitStr = _str.split("e");
-		
+
 		System.out.println(splitStr[1]);
+
+		// String buffer is thread safe
+		StringBuffer sb = new StringBuffer();
+		sb.append("Hello");
+		System.out.println(sb);
 		
-		System.out.println("Pushed to Git Repo");
+		String strSb = sb.toString();
+		
+		// String builder is not thread safe
+		StringBuilder sbuild = new StringBuilder();
+		sbuild.append("Hello");
+		sbuild.append(" ");
+		sbuild.append("World");
+		
+		System.out.println(sbuild);
+		
+		System.out.println("SB Capacity "+sb.capacity());
+		System.out.println("S builder Capacity "+sbuild.capacity());
+	
+		sbuild.append("hhhhhhhhhhhh");
+		
+		System.out.println("S builder Capacity "+sbuild.capacity());
+		
+		// Hello
+		// 01234
+		// replace from 0 till 3
+		// replace Hel with Welcome
+		// Welcomelo
+		
+		sb = sb.replace(0, 3, "Welcome");
+		System.out.println(sb);
+		
+		// get reverse of a String buffer
+		// new String buffer is
+		// olemocleW
+		// 012345678
+		sb.reverse();
+		sbuild.reverse();
+		
+		// new String buffer after deletion
+		// olcleW
+		// remove a part of the string
+		sb = sb.delete(2, 5);
+		System.out.println(sb);
+	
+		String str = "10";
+		
+		sb.append(10);
+		sb.append(112.77);
+		
+		System.out.println(sb);
+		str = sb.toString();
+		
+		User user = new User();
+		user.setId(10);
+		user.setName("Bob");
+		
+		User user1 = new User();
+		user1.setId(11);
+		user1.setName("Adams");
+		
+		System.out.println(user.toString());
+		System.out.println(user1.toString());
+		
 	}
 }
