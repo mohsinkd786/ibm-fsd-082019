@@ -57,5 +57,16 @@ public class StringSample {
 
 		String strChar = String.valueOf(cr);
 
+		// _str = "Hello"
+		// split by 'e'
+		// str[0] = "H"
+		// str[1] = "llo"
+		
+		// split a string
+		String[] splitStr = _str.split("e");
+		
+		System.out.println(splitStr[1]);
+		
+		
 	}
 }
