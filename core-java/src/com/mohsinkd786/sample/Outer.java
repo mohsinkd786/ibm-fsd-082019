@@ -2,6 +2,7 @@ package com.mohsinkd786.sample;
 
 public class Outer {
 
+	
 	void add() {
 		System.out.println("Hello add()");
 	}
