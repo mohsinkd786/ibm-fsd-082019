@@ -1,6 +1,6 @@
 package com.mohsinkd786.sample;
 
-public class User {
+public class User implements Comparable<User> {
 
 	public User() {
 
@@ -34,5 +34,17 @@ public class User {
 	@Override
 	public String toString() {
 		return "User: { ID : " + id + ", NAME : " + name + " }";
+	}
+
+	@Override
+	public int compareTo(User obj) {
+
+		if (obj.getId() > this.getId()) {
+			return -1;
+		} else if (obj.getId() < this.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
