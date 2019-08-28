@@ -3,9 +3,12 @@ package com.mohsinkd786.sample;
 import static com.mohsinkd786.sample.StaticSop.print;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListSample {
 
@@ -15,6 +18,9 @@ public class ListSample {
 		traverse();
 		comparableSort();
 		comparatorSort();
+		comparatorByProject();
+		// createListFromArray();
+		java8Streams();
 	}
 
 	public void createList() {
@@ -127,5 +133,71 @@ public class ListSample {
 
 		emps.forEach(e -> print(e));
 
+	}
+
+	public void comparatorByProject() {
+
+		print("Emps with Projects ");
+		List<Employee> empByPrj = new ArrayList<Employee>();
+		empByPrj.add(new Employee(10, "admin", "ad@gg.com", new Project(11, "ATT")));
+		empByPrj.add(new Employee(1, "guest", "guest@gmail.com", new Project(6, "Google")));
+		empByPrj.add(new Employee(71, "jack88", "jack@ibm.com", new Project(8, "Amazon")));
+		empByPrj.add(new Employee(5, "tinder", "tind@err.com", new Project(9, "Tmobile")));
+
+		// defining the compare method
+		// using lambda function
+		Collections.sort(empByPrj, (a, b) -> {
+			return b.getProject().getName().compareTo(a.getProject().getName());
+		});
+		empByPrj.forEach(e -> print(e));
+	}
+
+	public void createListFromArray() {
+		User[] users = new User[3];
+		users[0] = new User(2, "Tom");
+		users[1] = new User(1, "Rick");
+		users[2] = new User(4, "Sam");
+
+		// convert array to a list
+		List<User> usrs = Arrays.asList(users);
+
+		// convert list to array
+		User[] usrArr = (User[]) usrs.toArray();
+
+		// create / initialize the array
+		// & convert into the list
+		List<User> userlst = Arrays.asList(new User[] { new User(12, "Adam"), new User(5, "Rancher") });
+
+	}
+
+	public void java8Streams() {
+		print("STREAMS :");
+		List<Employee> empWithPrj = new ArrayList<Employee>();
+		empWithPrj.add(new Employee(10, "admin", "ad@gg.com", new Project(11, "ATT"), 10000));
+		empWithPrj.add(new Employee(1, "guest", "guest@gmail.com", new Project(6, "Google"), 400000));
+		empWithPrj.add(new Employee(71, "jack88", "jack@ibm.com", new Project(11, "ATT"), 350000));
+		empWithPrj.add(new Employee(5, "tinder", "tind@err.com", new Project(9, "Tmobile"), 20000));
+
+		/*
+		 * List<Employee> filteredList = new ArrayList<Employee>(); for (Employee e :
+		 * empWithPrj) { if (e.getProject().getName().equals("ATT")) { if (e.getSalary()
+		 * > 50000) { filteredList.add(e); } } } // end of for each
+		 * 
+		 * filteredList.forEach(e -> print(e));
+		 */
+		// use streams api
+		List<Employee> filteredEmps = empWithPrj.stream().filter(emp -> {
+			return "ATT".equals(emp.getProject().getName());
+		}).filter(e -> {
+			return e.getSalary() > 50000;
+		}).collect(Collectors.toList());
+
+		// converting Employee to User
+		// List<User> users =
+		filteredEmps.stream().map(e -> {
+			return new User(e.getId(), e.getEmail());
+		})
+				// .collect(Collectors.toList());
+				.forEach(u -> print(u));
 	}
 }
