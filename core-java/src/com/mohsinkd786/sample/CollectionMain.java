@@ -9,5 +9,8 @@ public class CollectionMain {
 
 		SetSample set = new SetSample();
 		set.run();
+
+		MapSample map = new MapSample();
+		map.run();
 	}
 }

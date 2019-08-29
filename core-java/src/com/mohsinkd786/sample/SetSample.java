@@ -72,6 +72,7 @@ public class SetSample {
 		linkHSet.add(new Temp(1, "Sample"));
 
 		linkHSet.forEach(t -> print(t));
+		
 	}
 }
 
