@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +23,8 @@ public class ListSample {
 		comparatorByProject();
 		// createListFromArray();
 		java8Streams();
+
+		java8StreamRevision();
 	}
 
 	public void createList() {
@@ -199,5 +203,47 @@ public class ListSample {
 		})
 				// .collect(Collectors.toList());
 				.forEach(u -> print(u));
+	}
+
+	public void java8StreamRevision() {
+		print("Java 8 Stream Revision with Custom Implementations");
+		List<User> usrs = Arrays.asList(new User[] { new User(101, "Tim"), new User(8, "Sulk"), new User(6, "Pentair"),
+				new User(102, "Bumpy"), new User(110, "Humpty"), });
+
+		// get the stream object
+		Stream<User> uStream = usrs.stream();
+		Predicate<User> findUserById = new FindUserById();
+
+		uStream = uStream.filter(findUserById);
+		Consumer<User> traverseUsers = new TraverseUsers();
+
+		uStream.forEach(traverseUsers);
+
+		//usrs.stream().filter(u -> {
+		//	return u.getId() < 10;
+		//}).forEach(u -> print(u));
+
+	}
+}
+
+class FindUserById implements Predicate<User> {
+
+	@Override
+	public boolean test(User u) {
+		print("FindUserById test()");
+		if (u.getId() < 10) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+class TraverseUsers implements Consumer<User> {
+
+	@Override
+	public void accept(User t) {
+		print("TraverseUsers accept()");
+		print(t);
 	}
 }
