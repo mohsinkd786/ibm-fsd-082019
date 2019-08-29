@@ -21,15 +21,14 @@ public class ListSample {
 		comparableSort();
 		comparatorSort();
 		comparatorByProject();
-		// createListFromArray();
+		createListFromArray();
 		java8Streams();
-
 		java8StreamRevision();
 	}
 
 	public void createList() {
 		print("Creation ::");
-		// Arraylist via list interface
+		// Array list via list interface
 		List<String> msgs = new ArrayList<String>();
 		msgs.add("Hello");
 		msgs.add("Hey");
@@ -48,13 +47,13 @@ public class ListSample {
 		// print(msgs.get(1));
 
 		// iterate on the collection
-		for (String m : msgs) {
-			// not permitted
-			// msgs.add("Welcome");
-			// print(m);
-		}
+		// for (String m : msgs) {
+		// not permitted
+		// msgs.add("Welcome");
+		// print(m);
+		// }
 		// Iterator
-		Iterator itr = msgs.iterator();
+		Iterator<String> itr = msgs.iterator();
 
 		while (itr.hasNext()) {
 			// not permitted
@@ -165,8 +164,10 @@ public class ListSample {
 		// convert array to a list
 		List<User> usrs = Arrays.asList(users);
 
+		// User u;
 		// convert list to array
-		User[] usrArr = (User[]) usrs.toArray();
+		User[] usrArr = usrs.toArray(new User[0]);
+		print("----> " + usrArr[0]);
 
 		// create / initialize the array
 		// & convert into the list
@@ -207,7 +208,10 @@ public class ListSample {
 
 	public void java8StreamRevision() {
 		print("Java 8 Stream Revision with Custom Implementations");
-		List<User> usrs = Arrays.asList(new User[] { new User(101, "Tim"), new User(8, "Sulk"), new User(6, "Pentair"),
+		List<User> usrs = Arrays.asList(new User[] { 
+				new User(101, "Tim"),
+				new User(8, "Sulk"),
+				new User(6, "Pentair"),
 				new User(102, "Bumpy"), new User(110, "Humpty"), });
 
 		// get the stream object
@@ -219,13 +223,17 @@ public class ListSample {
 
 		uStream.forEach(traverseUsers);
 
-		//usrs.stream().filter(u -> {
-		//	return u.getId() < 10;
-		//}).forEach(u -> print(u));
-
+		// usrs.stream().filter(u -> {
+		// return u.getId() < 10;
+		// }).forEach(u -> print(u));
+		//Map<String, List<User>> mp = uStream.collect(Collectors.groupingBy(User::getName));
+		//mp.forEach((k, v) -> print(k + "<-->" + v));
 	}
+
+	
 }
 
+// Predicate to validate a condition
 class FindUserById implements Predicate<User> {
 
 	@Override
@@ -239,6 +247,7 @@ class FindUserById implements Predicate<User> {
 	}
 }
 
+// consumer to traverse on the list of objects
 class TraverseUsers implements Consumer<User> {
 
 	@Override

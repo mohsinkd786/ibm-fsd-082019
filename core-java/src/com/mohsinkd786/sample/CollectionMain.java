@@ -6,5 +6,8 @@ public class CollectionMain {
 
 		ListSample list = new ListSample();
 		list.run();
+
+		SetSample set = new SetSample();
+		set.run();
 	}
 }
