@@ -14,6 +14,7 @@ public class EmpProjectMain {
 		Employee emp2 = new Employee(2, "John", new Project(1, "ATT"));
 		Employee emp3 = new Employee(3, "Sam", new Project(2, "TMobile"));
 
+		// add employees to the list
 		emps.add(emp1);
 		emps.add(emp2);
 		emps.add(emp3);
@@ -24,17 +25,18 @@ public class EmpProjectMain {
 		emps.forEach(e -> {
 			Project p = e.getProject();
 			p.employees = new ArrayList<Employee>();
-
 			projects.add(p);
 
 		});
 
-		projects.forEach(project -> {
+		for (Project project : projects) { // traverse on list of projects
+			for (Employee emp : emps) { // traverse on list of employees
 
-			emps.forEach(emp -> {
+				if (emp.getProject().getId() == project.getId()) { // verify the projects
 
-				if (emp.getProject().getId() == project.getId()) {
 					int index = updatedProjects.indexOf(project);
+					// get index for existing project in the new project list
+					// if no project exist then we shall create a new project
 
 					if (index < 0) {
 
@@ -51,9 +53,18 @@ public class EmpProjectMain {
 						updatedProjects.get(index).employees.add(emp);
 					}
 				}
-			});
+			}
+		}
 
-		});
+		/*
+		 * projects.forEach(project -> {
+		 * 
+		 * emps.forEach(emp -> {
+		 * 
+		 * });
+		 * 
+		 * });
+		 */
 
 		//
 		// Collections - class - sort
