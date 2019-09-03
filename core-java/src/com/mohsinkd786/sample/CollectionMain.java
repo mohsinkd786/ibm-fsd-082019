@@ -12,5 +12,6 @@ public class CollectionMain {
 
 		MapSample map = new MapSample();
 		map.run();
+		
 	}
 }

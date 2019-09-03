@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -24,6 +26,7 @@ public class ListSample {
 		createListFromArray();
 		java8Streams();
 		java8StreamRevision();
+		concurrentList();
 	}
 
 	public void createList() {
@@ -208,10 +211,7 @@ public class ListSample {
 
 	public void java8StreamRevision() {
 		print("Java 8 Stream Revision with Custom Implementations");
-		List<User> usrs = Arrays.asList(new User[] { 
-				new User(101, "Tim"),
-				new User(8, "Sulk"),
-				new User(6, "Pentair"),
+		List<User> usrs = Arrays.asList(new User[] { new User(101, "Tim"), new User(8, "Sulk"), new User(6, "Pentair"),
 				new User(102, "Bumpy"), new User(110, "Humpty"), });
 
 		// get the stream object
@@ -226,11 +226,53 @@ public class ListSample {
 		// usrs.stream().filter(u -> {
 		// return u.getId() < 10;
 		// }).forEach(u -> print(u));
-		//Map<String, List<User>> mp = uStream.collect(Collectors.groupingBy(User::getName));
-		//mp.forEach((k, v) -> print(k + "<-->" + v));
+		// Map<String, List<User>> mp =
+		// uStream.collect(Collectors.groupingBy(User::getName));
+		// mp.forEach((k, v) -> print(k + "<-->" + v));
 	}
 
-	
+	private void concurrentList() {
+		print("Concurrent List :");
+		List<String> conMsgs = new CopyOnWriteArrayList<String>();
+
+		conMsgs.add("Helo");
+		conMsgs.add("Hey");
+		conMsgs.add("Hi");
+
+		for (String msg : conMsgs) {
+			// print(msg);
+			conMsgs.add("Welcome");
+		}
+		List<String> _defMsgs = new ArrayList<String>(conMsgs);
+
+		_defMsgs.forEach(m -> print(m));
+		for (String msg : _defMsgs) {
+			// print(msg);
+			conMsgs.add("End Msg");
+		}
+		Iterator<String> itr = conMsgs.iterator();
+		Iterator<String> itr1 = _defMsgs.iterator();
+
+		print("Concurrent HashMap Updates :");
+
+		while (itr.hasNext()) {
+			print(itr.next());
+			conMsgs.add("Test");
+		}
+
+		while (itr1.hasNext()) {
+			print(itr1.next());
+			//_defMsgs.add("Sample Test");
+		}
+
+		// list Iterator
+		ListIterator<String> lstItr = conMsgs.listIterator();
+		while (lstItr.hasNext()) {
+			print(lstItr.previous());
+			print(lstItr.next());
+		}
+	}
+
 }
 
 // Predicate to validate a condition
