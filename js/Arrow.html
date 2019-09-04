@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <script type="text/javascript" src="sample.js"></script>
+        <style type="text/css">
+        input[type="text"],select, input[type="number"] {
+            margin: 2px;
+            width: 13em;
+            height: 2.5em;
+            border-radius: 3px;
+            border: 1px solid;
+            border-color: darkgreen;
+        }
+        .btn-save{
+            cursor: pointer;
+            width: 13em;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        .btn-save:hover{
+            background-color:bisque;
+            border-radius: 3px;
+            border: 1px solid;    
+        }
+        a{
+            text-decoration: none;
+        }
+        </style>
+    </head>
+    <body>
+        <fieldset>
+            <legend>ADD User</legend>
+            <div>
+                <input type="text" id="name" placeholder="Name.."/>
+            </div>
+            <div>
+                <select id="org">
+                    <option value="">--select--</option>
+                    <option value='IBM'>IBM</option>
+                    <option value='CTS'>Cognizant</option>
+                </select>
+            </div>
+            <div>
+                <input type="number" id="salary" placeholder="Salary.."/>
+            </div>
+            <div>
+                <input  type="button" value="Save" onclick="addUser()" class="btn-save"/>
+            </div>
+        </fieldset>
+        <input type="text" id="txt" />
+        <input type="button" value="Click Me" onclick="callMe();"/>
+        <input type="button" value="Show Users" onclick="getAllUsers();"/>
+        <div id="dv-users">
+            
+        </div>
+    </body>
+</html>
