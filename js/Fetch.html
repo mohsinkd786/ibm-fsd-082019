@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script type="text/javascript" src="sample.js"></script>
+        <style type="text/css">
+        input[type="text"],select, input[type="number"] {
+            margin: 2px;
+            width: 13em;
+            height: 2.5em;
+            border-radius: 3px;
+            border: 1px solid;
+            border-color: darkgreen;
+        }
+        .btn-save{
+            cursor: pointer;
+            width: 13em;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+        .btn-save:hover{
+            background-color:bisque;
+            border-radius: 3px;
+            border: 1px solid;    
+        }
+        a{
+            text-decoration: none;
+        }
+        </style>
+    </head>
+    <body>
+        <input type="text" id="txt" />
+        <input type="button" value="Click Me" onclick="callMe();"/>
+        <input type="button" value="Show Employees" onclick="getEmployees();"/>
+        <div id="emps">
+            
+        </div>
+    </body>
+</html>

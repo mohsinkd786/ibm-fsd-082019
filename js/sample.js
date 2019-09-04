@@ -96,11 +96,121 @@ const editUser = (uId) =>{
 
 }
 const getMaxId = () =>{
-    /*const uIds = users.sort((a,b)=>{
-        return a.id > b.id;
-    }).map(u=> {return u.id});
-    console.log(uIds);
-    */
-    const maxId = 3;
-    return maxId + 1;
+    const lastId = users.sort((a,b)=>{
+        return b.id - a.id;
+    }).map(u=> {return u.id})[0];
+    const maxId = lastId + 1;
+    return maxId;
+}
+
+let nums = [19,12,-9,8,9];
+
+// sort numbers
+nums.sort((el1,el2)=>{
+    return el2 - el1;
+});
+
+console.log(nums);
+
+let msgs = [ "Hello","Hi","Welcome","Adamant"];
+// sort strings
+msgs.sort((m1,m2)=>{
+    if(m1 > m2){
+        return 1;
+    }else if(m1 < m2){
+        return -1;
+    }else{
+        return 0;
+    }
+});
+
+console.log(msgs);
+
+// sort objects
+users.sort((a,b)=>{
+    return b.salary - a.salary;
+});
+
+console.log(users);
+
+let userNames = users.map(u=> {return u.name; });
+
+console.log(userNames);
+
+
+let userNameAcc = userNames.reduce((prev, curr)=>{
+    return prev + curr;
+});
+
+console.log(userNameAcc);
+
+
+
+let totalSalary = users.reduce((acc,u)=>{
+    if(acc instanceof Object){
+        return acc.salary + u.salary;
+    }else{
+        return acc + u.salary;
+    }
+});
+
+console.log(totalSalary);
+
+//prev curr
+//u1    u2
+//1500  u3
+
+//return prev.salary + curr.salary
+//    prev = u1.salary + u2.salary;
+//return prev;
+//return prev + curr.salary;
+
+const groupUserByOrg = users.reduce((acc,usr)=>{
+    let groupByKey = usr['organization'];
+    if(!acc[groupByKey]){
+        //create array
+        acc[groupByKey] = [];
+    }
+    acc[groupByKey].push(usr);
+    return acc;
+
+},{});
+
+console.log(groupUserByOrg);
+
+
+let userNameAccRight = userNames.reduceRight((prev, curr)=>{
+    return prev + curr;
+});
+
+console.log(userNameAccRight);
+
+//
+
+
+const getEmployees = ()=>{
+    const _url = 'http://dummy.restapiexample.com/api/v1/employees';
+    fetch(_url)
+    .then(res => res.json())
+    .then(body=> {
+        let emps = body.slice(0,10);
+        console.log(emps);
+        renderEmpTable(emps);
+    })
+    .catch(e=> console.error(e));
+}
+
+const renderEmpTable = (emps)=>{
+    let rows = '';
+    emps.forEach(e=>{
+        rows += `<tr>
+                    <td> =><i> NAME :${e.employee_name}, SALARY : ${e.employee_salary}, AGE : ${e.employee_age} </i></td>
+                </tr>`;
+    });
+    document.getElementById('emps').innerHTML = `<table>
+                                                    <tr>
+                                                        <th>Employee Details</th>
+                                                    </tr>
+                                                    ${rows}
+                                                </table>`;
 }
