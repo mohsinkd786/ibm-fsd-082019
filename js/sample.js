@@ -193,7 +193,8 @@ const getEmployees = ()=>{
     fetch(_url)
     .then(res => res.json())
     .then(body=> {
-        let emps = body.slice(0,10);
+        //let emps = body.slice(0,10);
+        let emps = body;
         console.log(emps);
         renderEmpTable(emps);
     })
@@ -204,7 +205,10 @@ const renderEmpTable = (emps)=>{
     let rows = '';
     emps.forEach(e=>{
         rows += `<tr>
-                    <td> =><i> NAME :${e.employee_name}, SALARY : ${e.employee_salary}, AGE : ${e.employee_age} </i></td>
+                    <td> =><i> NAME :${e.employee_name}, SALARY : ${e.employee_salary}, AGE : ${e.employee_age} </i>
+                    <a href="#" onclick='deleteEmployee(${e.id})'>Delete Me!</a>
+                    <a href="#" onclick='findEmployeeById(${e.id})'>Find Me!</a>
+                    </td>
                 </tr>`;
     });
     document.getElementById('emps').innerHTML = `<table>
@@ -212,5 +216,57 @@ const renderEmpTable = (emps)=>{
                                                         <th>Employee Details</th>
                                                     </tr>
                                                     ${rows}
-                                                </table>`;
+                                               </table>`;
+}
+
+const saveEmployee = () =>{
+    const url = 'http://dummy.restapiexample.com/api/v1/create';
+    const emp =JSON.stringify({
+        name : document.getElementById('name').value,
+        salary : parseInt(document.getElementById('salary').value),
+        age : parseInt(document.getElementById('age').value)
+    });
+    console.log(emp);
+
+    fetch(url,
+        {
+        method : 'POST',
+        body : emp // this is the request body
+    })
+    .then(res=>res.json())
+    .then(body=>{
+        console.log('Employee Added successfully');
+    }).catch(e=>{
+        console.error('Error Occurred '+e);
+    });
+}
+
+const deleteEmployee = (eId)=>{
+    const url = `http://dummy.restapiexample.com/api/v1/delete/${eId}`;
+    fetch(url,{
+        method : 'DELETE'
+    })
+    .then(res=>res.json())
+    .then(body=>{
+        console.log('Employee Deleted Successfully');
+    })
+    .catch(e=>{
+        console.error('Error Occurred '+e);
+    });
+}
+
+const findEmployeeById = (eId) =>{
+    
+    const url = `http://dummy.restapiexample.com/api/v1/employee/${eId}`;
+    fetch(url)
+    .then(res=>res.json())
+    .then(body=>{
+        console.log('BODY '+JSON.parse(body));
+        document.getElementById('name').value = body.employee_name;
+        document.getElementById('salary').value = body.employee_salary;
+        document.getElementById('age').value = body.employee_age;
+    })
+    .catch(e=>{
+        console.error('Error Occurred '+e);
+    });
 }
