@@ -89,3 +89,5 @@ const _intermediate = _operate(10); // second function call
 const _response = _intermediate(2); // final final call - from within switch statement
 
 console.log(`${_operand} is ${_response}`);
+
+

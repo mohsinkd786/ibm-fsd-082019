@@ -26,7 +26,7 @@ emitter.on('getAllEmps',getAllEmpsListener);
 emitter.emit('getAllEmps',emps);
 
 // turn the listener off for now
-emitter.off('getAllEmps',getAllEmpsListener);
+//emitter.off('getAllEmps',getAllEmpsListener);
 
 emitter.emit('getAllEmps',[
     {
@@ -34,3 +34,12 @@ emitter.emit('getAllEmps',[
         name : 'Marcius'
     }
 ]);
+
+// specify the maximum number of listeners 
+// that can be defined
+emitter.setMaxListeners(2);
+
+// total number of listeners
+emitter.listenerCount();
+
+console.log(module);

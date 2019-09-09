@@ -1,0 +1,11 @@
+{
+  "name": "hello-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "scripts": {
+    "start": "node hello.js"
+  },
+  "author": "Mohsin Khursheed",
+  "license": "ISC"
+}
