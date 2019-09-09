@@ -1,4 +1,11 @@
-'use strict';
+//const operand = require('./operations');
+const tryMe = require('./operations')._tryMe;
+const _add =  require('./operations').myAdd;
+const _diff =  require('./operations')._diff;
+const _mul =  require('./operations')._mul;
+const _div =  require('./operations')._div;
+
+tryMe();
 
 const operate = (_action,_first, _next) =>{
     switch(_action){
@@ -16,34 +23,13 @@ const operate = (_action,_first, _next) =>{
                 break;
     }
 }
-
-const _add = (_first,_next)=>{
-    const _result = _first + _next;
-    console.log(`SUM is : ${_result}`);
-}
-
-const _diff = (_first,_next)=>{
-    const _result = _first - _next;
-    console.log(`DIFFERENCE is : ${_result}`);
-}
-
-const _mul = (_first,_next)=>{
-    const _result = _first * _next;
-    console.log(`PRODUCT is : ${_result}`);
-}
-
-const _div = (_first,_next)=>{
-    const _result = _first / _next;
-    console.log(`QUOTIENT is : ${_result}`);
-}
-
 //
 const _action = process.argv[2];
 const _first = parseInt(process.argv[3] || "10" );
-console.log(process.argv[4]);
+//console.log(process.argv[4]);
 const _next = parseInt(process.argv[4] || "4");
-
-//console.log(_action);
 operate(_action,_first,_next);
 
+// nothing has been exported from this file
+console.log(module.exports);
 
