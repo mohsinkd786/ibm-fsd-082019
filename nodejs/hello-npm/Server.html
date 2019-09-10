@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script type="text/javascript">
+        // on load function
+        const loadUsers = ()=>{
+            fetch('http://localhost:1200/users',{
+                method : 'POST'
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                let usrs = '';
+                data.users.forEach(u=>{
+                    usrs += `${u.id} ::${u.name} <br/>`;
+                });
+                document.getElementById('users').innerHTML = usrs;
+            }).catch(e=>console.error(e));
+        }
+        </script>
+    </head>
+    <body onload="loadUsers()">
+        <div id='users'>
+
+        </div>
+    </body>
+</html>
