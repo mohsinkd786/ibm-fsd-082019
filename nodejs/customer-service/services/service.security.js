@@ -1,5 +1,25 @@
 const users = require('../db/users').users;
 
+const basicAuth = (rq,rs,next)=>{
+    // get the auth header
+    const basicHeader = rq.headers.authorization;
+    if(basicHeader !=undefined ){
+        // parse the header value
+        const base64Token = basicHeader.split(' ')[1];
+        // parse token
+        const credentials = Buffer.from(base64Token,'base64').toString().split(':');
+        if(validate(credentials[0],credentials[1])){
+            // if valid credentials allow pass via
+            next();
+        }else{
+            // if invalid credentials redirect
+            rs.redirect('/unauthorize');
+        }
+    }else{
+        // if invalid credentials redirect
+        rs.redirect('/unauthorize');
+    }
+}
 const authenticate = (rq,rs,next)=>{
     if(validate(rq.headers.user,rq.headers.pass)){
         // if valid credentials allow pass via
@@ -23,5 +43,6 @@ const validate= (user,pass)=>{
 }
 
 module.exports = {
-    authenticate
+    authenticate,
+    basicAuth
 }

@@ -5,6 +5,7 @@ const calcRoute = require('./apis/api.calc').server;
 const orderRoute = require('./apis/api.order').app;
 const productRoute = require('./apis/api.product').app;
 const authenticate = require('./services/service.security').authenticate;
+const basicAuth = require('./services/service.security').basicAuth;
 
 const parser = require('body-parser');
 // apply parser to express
@@ -41,7 +42,7 @@ server.get('/unauthorize',(rq,rs)=>{
     });
 });
 server.use('/orders',(rq,rs,next)=>{
-    authenticate(rq,rs,next);
+    basicAuth(rq,rs,next);
 });
 server.use('/products',(rq,rs,next)=>{
     authenticate(rq,rs,next);
