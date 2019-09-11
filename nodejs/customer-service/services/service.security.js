@@ -7,8 +7,8 @@ const basicAuth = (rq,rs,next)=>{
         // parse the header value
         const base64Token = basicHeader.split(' ')[1];
         // parse token
-        const credentials = Buffer.from(base64Token,'base64').toString().split(':');
-        if(validate(credentials[0],credentials[1])){
+        const [user,pass] = Buffer.from(base64Token,'base64').toString().split(':');
+        if(validate(user,pass)){
             // if valid credentials allow pass via
             next();
         }else{

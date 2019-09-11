@@ -41,9 +41,11 @@ server.get('/unauthorize',(rq,rs)=>{
         message : 'Insufficient access found'
     });
 });
+
 server.use('/orders',(rq,rs,next)=>{
     basicAuth(rq,rs,next);
 });
+
 server.use('/products',(rq,rs,next)=>{
     authenticate(rq,rs,next);
 });
